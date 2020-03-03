@@ -1,5 +1,6 @@
 // for this file to work, you need to install following plugins:
 // ssh agent
+// EnvInject Plugin
 // and add following credentials:
 // digital_ocean = ssh
 
@@ -24,14 +25,26 @@ node {
 		commit_id = readFile('.git/commit-id').trim();
 	}
 
-	stage('test') {
-		sh 'docker build -t zdjuric/docker-react -f Dockerfile.dev .';
-		sh 'docker run zdjuric/docker-react npm run my-test';
+	stage('test environment variables') {
+		sh "echo ${environment_variable_1}";
+	}
+
+	stage('test react app') {
+		// sh 'docker build -t zdjuric/react-test -f ./client/Dockerfile.dev ./client';
+		// sh 'docker run zdjuric/react-test npm run test';
+	}
+
+	stage('test react app') {
+		// sh 'docker build -t zdjuric/complex-client ./client';
+		// sh 'docker build -t zdjuric/complex-nginx ./nginx';
+		// sh 'docker build -t zdjuric/complex-server ./server';
+		// sh 'docker build -t zdjuric/complex-worker ./worker';
+		// sh 'docker run zdjuric/react-test npm run test';
 	}
 
 	stage('deploy') {
-		sshagent (credentials: ['digital_ocean']) {
+		/* sshagent (credentials: ['digital_ocean']) {
 			sshagentCommand('./deploy_script.sh');
-		}
+		} */
 	}
 }
