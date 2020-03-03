@@ -1,7 +1,7 @@
 cd complex_docker_project;
 
-echo 'test';
+chmod +x deploy_script;
 
 docker-compose down;
 docker-compose pull;
-docker-compose up --build;
+docker-compose up -d --build;
