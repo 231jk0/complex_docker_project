@@ -8,11 +8,18 @@ services:
     image: 'redis:latest'
   nginx:
     restart: always
-    image: 'zdjuric/complex-nginx'
+    build:
+      dockerfile: Dockerfile.dev
+      context: './nginx'
     ports:
-      - '80:80'
+      - '3050:80'
   api:
-    image: 'zdjuric/complex-server'
+    build:
+      dockerfile: Dockerfile.dev
+      context: './server'
+    volumes:
+      - /app/node_modules
+      - ./server:/usr/app
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -22,9 +29,19 @@ services:
       - PG_PASSWORD=neka_zeznuta_sifra2
       - PG_PORT=5432
   client:
-    image: 'zdjuric/complex-client'
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/usr/app
   worker:
-    image: 'zdjuric/complex-worker'
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/usr/app
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379

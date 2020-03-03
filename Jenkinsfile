@@ -1,6 +1,24 @@
+// contents of deploy_script.sh
+
+// git config --global user.email "user.email";
+// git config --global user.name "user.name";
+
+// rm -rf complex_docker_project
+// git clone https://github.com/231jk0/complex_docker_project.git;
+// cd complex_docker_project
+// docker-compose down
+// docker-compose up --build
+
 // for this file to work, you need to install following plugins:
 // ssh agent
-// EnvInject Plugin
+// and add following credentials:
+// digital_ocean = ssh
+
+// for this file to work, you need to add environment variables DOCKER_PASSWORD and DOCKER_USERNAME
+// manage jenkins -> configure system -> environment variables
+
+// for this file to work, you need to install following plugins:
+// ssh agent
 // and add following credentials:
 // digital_ocean = ssh
 
