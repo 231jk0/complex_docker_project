@@ -1,15 +1,3 @@
-// contents of deploy_script.sh
-
-// git config --global user.email "user.email";
-// git config --global user.name "user.name";
-
-// rm -rf complex_docker_project
-// git clone https://github.com/231jk0/complex_docker_project.git;
-// cd complex_docker_project
-// docker-compose down
-// docker-compose pull
-// docker-compose up --build
-
 // for this file to work, you need to install following plugins:
 // ssh agent
 // and add following credentials:
@@ -65,8 +53,10 @@ node {
 	}
 
 	stage('deploy') {
-		/* sshagent (credentials: ['digital_ocean']) {
-			sshagentCommand('./deploy_script.sh');
-		} */
+		sshagent (credentials: ['digital_ocean']) {
+			sshagentCommand('rm -rf complex_docker_project');
+			sshagentCommand('git clone https://github.com/231jk0/complex_docker_project.git');
+			sshagentCommand('./complex_docker_project/deploy_script.sh');
+		}
 	}
 }
