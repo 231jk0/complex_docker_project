@@ -11,7 +11,7 @@ function App() {
 			<div className="App">
 				<header className="App-header">
 					<Link to="/">Fib Numbers</Link>
-					<Link to="/otherpage">Other pages</Link>
+					<Link to="/otherpage">Other page</Link>
 				</header>
 			</div>
 			<Route exact path="/" component={Fib} />
