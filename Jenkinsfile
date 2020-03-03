@@ -7,6 +7,7 @@
 // git clone https://github.com/231jk0/complex_docker_project.git;
 // cd complex_docker_project
 // docker-compose down
+// docker-compose pull
 // docker-compose up --build
 
 // for this file to work, you need to install following plugins:
