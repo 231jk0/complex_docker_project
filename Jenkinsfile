@@ -19,6 +19,7 @@ def sshagentCommand(command) {
 node {
 	def commit_id;
 
+	// If you want this to work you need to setup webhook on github.com
 	properties([
 		pipelineTriggers([
 			[$class: "GitHubPushTrigger"]
@@ -56,6 +57,7 @@ node {
 		sshagent (credentials: ['digital_ocean']) {
 			sshagentCommand('rm -rf complex_docker_project');
 			sshagentCommand('git clone https://github.com/231jk0/complex_docker_project.git');
+			sshagentCommand('chmod +x ./complex_docker_project/deploy_script.sh');
 			sshagentCommand('./complex_docker_project/deploy_script.sh');
 		}
 	}
