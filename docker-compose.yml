@@ -4,6 +4,8 @@ services:
     image: 'postgres:latest'
     environment:
       - POSTGRES_PASSWORD=neka_zeznuta_sifra2
+    volumes:
+      - ../pgAdminData:/var/lib/postgresql/data
   redis:
     image: 'redis:latest'
   nginx:
