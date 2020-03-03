@@ -25,21 +25,24 @@ node {
 		commit_id = readFile('.git/commit-id').trim();
 	}
 
-	stage('test environment variables') {
-		sh "echo ${environment_variable_1}";
+	stage('test react app') {
+		sh 'docker build -t zdjuric/react-test -f ./client/Dockerfile.dev ./client';
+		sh 'docker run zdjuric/react-test npm run test';
 	}
 
-	stage('test react app') {
-		// sh 'docker build -t zdjuric/react-test -f ./client/Dockerfile.dev ./client';
-		// sh 'docker run zdjuric/react-test npm run test';
+	stage('build images') {
+		sh 'docker build -t zdjuric/complex-client ./client';
+		sh 'docker build -t zdjuric/complex-nginx ./nginx';
+		sh 'docker build -t zdjuric/complex-server ./server';
+		sh 'docker build -t zdjuric/complex-worker ./worker';
 	}
 
-	stage('test react app') {
-		// sh 'docker build -t zdjuric/complex-client ./client';
-		// sh 'docker build -t zdjuric/complex-nginx ./nginx';
-		// sh 'docker build -t zdjuric/complex-server ./server';
-		// sh 'docker build -t zdjuric/complex-worker ./worker';
-		// sh 'docker run zdjuric/react-test npm run test';
+	stage('push images to docker hub') {
+		sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin";
+		sh "docker push zdjuric/complex-client";
+		sh "docker push zdjuric/complex-nginx";
+		sh "docker push zdjuric/complex-server";
+		sh "docker push zdjuric/complex-worker";
 	}
 
 	stage('deploy') {
